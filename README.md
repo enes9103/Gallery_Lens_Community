@@ -1,71 +1,130 @@
--npm init ile projeyi kuruyoruz.
--Öncelikle express framework ünü install yapıyoruz. (npm install express)
--app.js dosyamızı oluşturup (veya index.js proje kurulurken belirtiyoruz. Default index.js) app 'i express'e eşitliyoruz. ve çalıştıracağımız port'u belirtiyoruz.
--app.listen() diyerek içerisine parametre olarak port'umuzu geçiyoruz. ve devamında listren içinde callback function olarak clg geçiyoruz.
--app.get() İLE REQ VE RES İ CALL BACK OLARAK ALIYORUZ.
--teminalde node app diyerek server'ımızı başlatıyoruz.
--yaptığımız değişiklikler sonrası sunucuyu kapat aç yapmamak için nodemon paketini kullanıyoruz.Bunu kurmak için (npm install -D nodemon) dev dep olarak kullanıyoruz.
--ardından package.json dosyamızda
-"scripts": {
-"start": "nodemon app.js"
-},
-script'i test yerine "start": "nodemon app.js" olarak düzenliyoruz. Artık uygulamamız npm start ile başlatılacak ve başlarken nodemon kullanarak app.js i çalıştır demiş olduk.
 
--http://expressjs.com/en/starter/static-files.html#serving-static-files-in-express
-dokümantasyona gidip static dosyalarımızın public klasörü altındaki dosyalar olduğunu belirtmek için kullanımı alıyoruz ve app imize ekliyoruz.
-(app.use(express.static('public')))
+Project Development Process Notes:
 
--node.js te middleware kavramı: Gelen isteklere karşı cevaplar vereceğimiz ve ek işlemler yapacağımız ara yazılımlardır.
+Session
+Project and Node.js MongoDB Introduction
 
--template engine: views altındaki html dosyalarını render etmek için kullanacağız. bu html dosyaları içine js ile müdahale etmek istediğimizde template engine vasıtasıyla bu işlemi yapacağız. Bunun için ejs paketini kullanacağız
-(npm i ejs)
+Session
 
--ejs kurduktan sonra render etmek istediğimiz html dosyasını örneğin index.html i index.ejs olarak değiştiriyoruz. app.js dosyasına da view engine olarak ejs set ettiğimiz için 
-app.get('/', (req, res)=>{
-    res.render('index')
+Initialize the project using npm init.
+
+First, install the Express framework with npm (npm install express).
+
+Create the app.js file (or specify index.js during project setup as the default). Assign the express app to the variable 'app' and specify the port you want to run the application on.
+
+Use app.listen() by passing the port as a parameter and include a callback function inside listen to log a message.
+
+Use app.get() to handle incoming requests and responses as callback functions.
+
+Start the server by running 'node app' in the terminal.
+
+To avoid stopping and restarting the server after each change, use the nodemon package (npm install -D nodemon) as a dev dependency.
+
+Update the "scripts" section in the package.json file to use nodemon: "start": "nodemon app.js". Now, you can start the application with 'npm start', and nodemon will run the app.js file.
+
+Middleware concept in Node.js: Middleware functions are intermediate software that handle incoming requests, provide responses, and perform additional tasks.
+
+Template engine: To render HTML files under the 'views' directory, use a template engine. The EJS package (npm i ejs) allows us to manipulate these HTML files using JavaScript. Rename the HTML files to .ejs files (e.g., index.html to index.ejs) and set the view engine to EJS in app.js. Render the index page as follows:
+
+`app.get('/', (req, res) => {
+    res.render('index');
+});`
+
+Similarly, update other pages and render them based on their respective URLs.
+
+To reduce repetition in pages, such as the header, footer, or other common sections, create reusable components using partials. Inside the 'views' folder, create a folder called 'partials' and create files like \_header.ejs, \_menu.ejs, etc., to encapsulate those sections. Include these partials in your pages using the following syntax:
+
+`<%- include("partials/_header") %>`
+
+Tabii, yardımcı olmaktan mutluluk duyarım. Aşağıda notlarızı İngilizceye çevrilmiş hali mevcut. Dikkatli bir şekilde çeviri yaptım ve not akışını değiştirmeden düzenlemeye çalıştım. İşte çevrilmiş hali:
+
+Project Development Process Notes:
+
+Session
+Project and Node.js MongoDB Introduction
+
+Session
+
+Initialize the project using npm init.
+
+First, install the Express framework with npm (npm install express).
+
+Create the app.js file (or specify index.js during project setup as the default). Assign the express app to the variable 'app' and specify the port you want to run the application on.
+
+Use app.listen() by passing the port as a parameter and include a callback function inside listen to log a message.
+
+Use app.get() to handle incoming requests and responses as callback functions.
+
+Start the server by running 'node app' in the terminal.
+
+To avoid stopping and restarting the server after each change, use the nodemon package (npm install -D nodemon) as a dev dependency.
+
+Update the "scripts" section in the package.json file to use nodemon: "start": "nodemon app.js". Now, you can start the application with 'npm start', and nodemon will run the app.js file.
+
+Middleware concept in Node.js: Middleware functions are intermediate software that handle incoming requests, provide responses, and perform additional tasks.
+
+Template engine: To render HTML files under the 'views' directory, use a template engine. The EJS package (npm i ejs) allows us to manipulate these HTML files using JavaScript. Rename the HTML files to .ejs files (e.g., index.html to index.ejs) and set the view engine to EJS in app.js. Render the index page as follows:
+
+javascript
+Copy code
+app.get('/', (req, res) => {
+res.render('index');
+});
+Similarly, update other pages and render them based on their respective URLs.
+
+To reduce repetition in pages, such as the header, footer, or other common sections, create reusable components using partials. Inside the 'views' folder, create a folder called 'partials' and create files like \_header.ejs, \_menu.ejs, etc., to encapsulate those sections. Include these partials in your pages using the following syntax:
+ejs
+Copy code
+<%- include("partials/\_header") %>
+Session
+MongoDB Atlas
+Log in to your MongoDB account and enter the project. Click on "Build a Database" and continue with the free tier. Choose one of the cloud providers (e.g., AWS) and select a region (e.g., Frankfurt). Click "Create Cluster" to set up your database. Define a username and password for the user who will access the database. Optionally, you can add your local IP address to access the database remotely (e.g., 0.0.0.0/0).
+After setting up the MongoDB cluster, click "Connect" and choose "Connect your application" to get the connection string. Copy the connection string and create a .env file in your project to store sensitive information. Use a key to store the connection string in the .env file, like:
+
+`DB_URI=mongodb+srv://<username>:<password>@cluster0.vvkqftq.mongodb.net/?retryWrites=true&w=majority`
+
+Install the dotenv package (npm i dotenv) to access environment variables from the .env file.
+
+Install the mongoose package (npm i mongoose) to interact with MongoDB using models and schemas.
+
+In your app.js file, import and execute dotenv.config() at the beginning to access the variables defined in the .env file.
+
+Create a db.js file to handle the database connection. Inside this file, define a connection function that takes the connection string and configuration object as parameters. The configuration object should contain the name of your database. Before using this function, go to your MongoDB page, access the "Browse Collections" tab, and create a new database with a collection name of your choice.
+
+``
+// db.js
+const mongoose = require('mongoose');
+
+const conn = (connectionString, config) => {
+mongoose.connect(connectionString, {
+dbName: config.dbName,
+useNewUrlParser: true,
+useUnifiedTopology: true,
 })
-render edilecek anasayfa yı index.ejs dosyası olarak localhost:3000 de render ettiriyoruz.
--Aynı şekilde diğer sayfaları da .html kısmını .ejs olarak güncelliyoruz ve 
-app.get('/about', (req, res)=>{
-    res.render('about')
-})
-bu şekilde url ve render edilecek sayfayı tanımlıyoruz.
+.then(() => console.log('Connected to MongoDB'))
+.catch((err) => console.error('Connection error:', err));
+};
 
--Sayfalarda mükerrer olan kısımları örneğin her sayfadakı head kısmı gibi, header gibi, footer gibi kısımları component mantığını oluşturmak için views altında partial adında klasör açıp _header.ejs, _menu.ejs gibi dosyalar oluşturup içerisinde topluyoruz. Ardından sayfalardan kestiğimiz yerlere bu _header.ejs yi veya component neyse alttaki gibi çağıtıyoruz.
-<%- include("partials/_header") %>
+module.exports = conn;
+``
 
--3. session MongoDb Atlas
--Mongodb adresinde hesabımıza giriş yapıp project içine giriyoruz ve Build a Database diyerek free olandan devam ediyoruz cloudlardan birisini seçiyoruz örn: aws sunucu adresi seçiyoruz örn:frankfurt ardundan create cluster diyoruz. Ve database oluşturuyoruz. Ardından gelen ekranda db ye ulaşacak user ın username ve password belirliyoruz. myLocal env ve ip adres girmek istersek girip (örn: 0.0.0.0/0)add entry ve ardından finish diyerek Database cluster'ımızı görüyoruz.
--Burada connect diyerek veri tabanına ulaşmak için gereken connection string e ulaşmak için Connect your application seçiyoruz ve connection string'i copyalayıp projemizde .env oluşturup bir key ile env dosyamıza ekliyoruz. Connection stringdeki Kullanıcı adı ve şifreyi güncelliyoruz.
-örn: DB_URI=mongodb+srv://<username>:<password>@cluster0.vvkqftq.mongodb.net/?retryWrites=true&w=majority
+Import the connection function in app.js and call it, passing the connection string and configuration object as arguments (update the database name and collection name as needed). For example:
 
+``
+// app.js
+const conn = require('./db');
+const connectionString = process.env.DB_URI;
 
-- Mongo DB de DB Cluster oluşturduktan sonra dotenv paketini projemize yüklüyoruz. Bu paket uygulamamızda oluşturduğumuz çevre değişkenlerine (environment variable) ulaşabilmemizi sağlıyor. (npm i dotenv)
+conn(connectionString, { dbName: 'your_database_name_here' });
+``
+Now, you can create models and insert documents into your MongoDB database.
 
--Ayrıca mongoose paketini de yüklüyoruz. Mongoose genel olarak modeller içerisinde oluşturacağımız şema yapılayla doküman tabanlı mongodb verilerimizin kolaylıkla oluşturmamıza yarar. (npm i mongoose)
+Don't forget to include the application's port information in the .env file as well. For example, add 'PORT=3000' to the .env file and update app.js as follows:
 
--Ardından app.js dosyamıza gidiyoruz ve öncelikle dotenv import edip config methodunu çalıştırmak için kodumuzu ekliyoruz. dotenv.config();
-Ardık env dosyasında oluşturduğumuz variable lara erişebiliriz.
+``
+// app.js
+const port = process.env.PORT || 3000;
+``
 
--Şimdi ise veri tabanı bağlantımızı oluşturacağız.
-Bunun için bir db.js dosyası oluşturuyoruz.
-Burada mongoose ile db ye connect func yazıyoruz. Bu arrow func öncelikle connection str olduğu string bağlantısını vereceğiz. ikinci olarak ta configuration objesi açıyoruz.
-Onje içerisinde db veri tabanı ismimizi veriyoruz. Tabi önce Bu aşamada MongoDb sayfamıza DB mize gidip,
-Db cluster ımızda Browse Collections tabına gidip Add my Ownd Data diyoruz ve Db name'i ve collection name i (collection rastgele girebilirsin) girip create diyoruz  veri tabanımızı oluşturuyoruz.
+Please note that when you make changes to the .env file, you need to stop and restart the server to apply the new environment variables.
 
--Ardından tekrar db.js imize girip configurasyon objesinde dbNameden sonra ikinci parametre olarak 
-useNewUrlParser: true ve
-useUnifiedTopology: true veriyoruz.
-Burada mongoose.connect bize bir promise döner o yüzden .then catch ile bu promise i yakalıyoruz.
-app.js te bu bağlantı dosyasını ve func kullanmak için de bu dosyayı export ediyoruz.
-
-- Mongoose connect func tamamladıktan sonra app.js te bu connection fonksiyoununu import edip fonksiyonu çağırıyoruz. örn: conn() ve DB bağlantımızın gerçekleştiğini terminalimmizde görürüz.
-
--Bundan sonra artık modellerimizi oluşturup mongo db veri tabanımıza düküman girişinde bulunabiliriz.
-
--Burada unutmadan app dosyamızda belirttiğimiz port bilgisini de .env dosyamıza alabiliriz. .env dosyamıza PORT=3000 diyerek port u env e ekliyoruz ve app.js imizde 
-const port = process.env.PORT; şeklinde güncelliyoruz.
-Not:.env dosyasıyla ilgili unutmamamız gereken husus .env de bir değişiklik yapıldığında sunucuyu durdurup tekrar çalıştırmak gerekir.
-
--4.session
--
