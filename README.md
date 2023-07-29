@@ -30,7 +30,7 @@
 - Middleware concept in Node.js: Middleware functions are intermediate software that handle incoming requests, provide responses, and perform additional tasks.
 - Template engine: To render HTML files under the 'views' directory, use a template engine. The EJS package allows us to manipulate these HTML files using JavaScript. Rename the HTML files to .ejs files (e.g., index.html to index.ejs) and set the view engine to EJS in app.js. Render the index page as follows:
 
-```json
+```
 app.get('/', (req, res) => {
   res.render('index');
 })
@@ -40,15 +40,15 @@ app.get('/', (req, res) => {
 - To reduce repetition in pages, such as the header, footer, or other common sections, create reusable components using partials. Inside the 'views' folder, create a folder called 'partials' and create files like \_header.ejs, \_menu.ejs, etc., to encapsulate those sections.
 - Include these partials in your pages using the following syntax:
 
-```<%- include("partials/_header") %>
-
+```
+<%- include("partials/_header") %>
 ```
 
 - Similarly, update other pages and render them based on their respective URLs.
 - To reduce repetition in pages, such as the header, footer, or other common sections, create reusable components using partials. Inside the 'views' folder, create a folder called 'partials' and create files like \_header.ejs, \_menu.ejs, etc., to encapsulate those sections. Include these partials in your pages using the following syntax:
 
-```<%- include("partials/_header") %>
-
+```
+<%- include("partials/_header") %>
 ```
 
 ## Session 3
@@ -59,8 +59,8 @@ app.get('/', (req, res) => {
 
 - After setting up the MongoDB cluster, click "Connect" and choose "Connect your application" to get the connection string. Copy the connection string and create a .env file in your project to store sensitive information. Use a key to store the connection string in the .env file, like:
 
-```DB_URI=mongodb+srv://<username>:<password>@cluster0.vvkqftq.mongodb.net/?retryWrites=true&w=majority
-
+```
+DB_URI=mongodb+srv://<username>:<password>@cluster0.vvkqftq.mongodb.net/?retryWrites=true&w=majority
 ```
 
 - Install the dotenv package to access environment variables from the .env file: npm install dotenv.
@@ -68,7 +68,7 @@ app.get('/', (req, res) => {
 - In your app.js file, import and execute dotenv.config() at the beginning to access the variables defined in the .env file.
 - Create a db.js file to handle the database connection. Inside this file, define a connection function that takes the connection string and configuration object as parameters. The configuration object should contain the name of your database. Before using this function, go to your MongoDB page, access the "Browse Collections" tab, and create a new database with a collection name of your choice.
 
-```// db.js
+```
 const mongoose = require('mongoose');
 
 const conn = (connectionString, config) => {
@@ -86,7 +86,7 @@ module.exports = conn;
 
 - Import the connection function in app.js and call it, passing the connection string and configuration object as arguments (update the database name and collection name as needed).
 
-```// app.js
+```
 const conn = require('./db');
 const connectionString = process.env.DB_URI;
 
@@ -96,16 +96,11 @@ conn(connectionString, { dbName: 'your_database_name_here' });
 - Now, you can create models and insert documents into your MongoDB database.
 - Don't forget to include the application's port information in the .env file as well. For example, add PORT=3000 to the .env file and update app.js as follows:
 
-```// app.js
-
 ```
-
 const port = process.env.PORT || 3000;
+```
 
 - Please note that when you make changes to the .env file, you need to stop and restart the server to apply the new environment variables.
 
 ## Session 4
 
-```
-
-```
