@@ -1,5 +1,3 @@
-
-
 # Project Development Process Notes
 
 ## Session 1
