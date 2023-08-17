@@ -21,15 +21,12 @@ const loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    console.log("req.body", req.body);
-
     const user = await User.findOne({ username });
 
     let same = false;
 
     if (user) {
       same = await bcrypt.compare(password, user.password);
-      console.log("same", same);
     } else {
       res.status(401).json({
         succeded: false,
