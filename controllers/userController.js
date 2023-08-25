@@ -3,8 +3,15 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const createUser = async (req, res) => {
-  console.log("req", req);
   try {
+    const existingUser = await User.findOne({ username: req.body.username });
+    if (existingUser) {
+      return res.status(400).json({
+        succeded: false,
+        error: "Username is already taken.",
+      });
+    }
+
     const user = await User.create(req.body);
     res.status(201).json({
       succeded: true,
