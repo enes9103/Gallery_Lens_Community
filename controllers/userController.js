@@ -43,9 +43,14 @@ const loginUser = async (req, res) => {
     }
 
     if (same) {
+      const token = createToken(user._id);
+      res.cookie("jsonwebtoken", token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24,  // max 1 day
+      });
+
       res.status(200).json({
         user,
-        token: createToken(user._id),
       });
     } else {
       return res.status(401).json({
