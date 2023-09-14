@@ -4,14 +4,6 @@ import jwt from "jsonwebtoken";
 
 const createUser = async (req, res) => {
   try {
-    const existingUser = await User.findOne({ username: req.body.username });
-    if (existingUser) {
-      return res.status(400).json({
-        succeded: false,
-        error: "Username is already taken.",
-      });
-    }
-
     const user = await User.create(req.body);
     res.status(201).json({ user: user._id });
   } catch (error) {
@@ -26,8 +18,6 @@ const createUser = async (req, res) => {
         errors2[key] = error.errors[key].message;
       });
     }
-
-    console.log("errors2", errors2);
 
     res.status(400).json(errors2);
   }
