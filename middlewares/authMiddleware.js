@@ -24,7 +24,7 @@ const checkUser = async (req, res, next) => {
 
 const authenticateToken = async (req, res, next) => {
   try {
-    const token = req.cookies.jwt; // token'ı cookie den aldık
+    const token = req.cookies.jwt;
 
     if (token) {
       jwt.verify(token, process.env.JWT_SECRET, (err) => {

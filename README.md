@@ -99,6 +99,3 @@ const port = process.env.PORT || 3000;
 ```
 
 - Please note that when you make changes to the .env file, you need to stop and restart the server to apply the new environment variables.
-
-## Session 4
-
