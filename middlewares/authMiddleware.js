@@ -1,5 +1,5 @@
-import User from "../models/userModel.js";
-import jwt from "jsonwebtoken";
+import User from '../models/userModel.js';
+import jwt from 'jsonwebtoken';
 
 const checkUser = async (req, res, next) => {
   const token = req.cookies.jwt;
@@ -30,18 +30,18 @@ const authenticateToken = async (req, res, next) => {
       jwt.verify(token, process.env.JWT_SECRET, (err) => {
         if (err) {
           console.log(err.message);
-          res.redirect("/login");
+          res.redirect('/login');
         } else {
           next();
         }
       });
     } else {
-      res.redirect("/login");
+      res.redirect('/login');
     }
   } catch (error) {
     res.status(401).json({
       succeeded: false,
-      error: "Not authorized",
+      error: 'Not authorized',
     });
   }
 };
