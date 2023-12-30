@@ -137,8 +137,6 @@ const sendMail = async (req, res) => {
           padding-bottom: 10px;
           padding-top: 10px;
         }
-  
-  
       </style>
     </head>
     <body>
@@ -169,7 +167,6 @@ const sendMail = async (req, res) => {
               <!-- END MAIN CONTENT AREA -->
               </table>
               <!-- END CENTERED WHITE CONTAINER -->
-  
   
             </div>
           </td>
